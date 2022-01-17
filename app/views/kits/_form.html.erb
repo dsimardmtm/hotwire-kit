@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "new_kit", target: "_top" do %>
-  <%= form_with(model: kit, id: dom_id(kit), class: "border border-blue-300 shadow rounded-md p-4 max-w-sm w-full") do |form| %>
+  <%= form_with(model: kit, id: dom_id(kit), class: "border border-blue-300 shadow rounded-md p-4 max-w-sm w-full bg-gray-50") do |form| %>
     <% if kit.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
         <h2><%= pluralize(kit.errors.count, "error") %> prohibited this kit from being saved:</h2>
@@ -17,7 +17,7 @@
         <%= form.label :name %>
         <%= form.text_field :name, 
           class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 
-          data: { summaryTarget: "name" } %>
+          data: { "summary-target": "name", action: "input->summary#printName" } %>
       </div>
 
       <div class="my-5">

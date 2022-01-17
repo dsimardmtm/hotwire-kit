@@ -7,7 +7,7 @@ export default class extends Controller {
   };
 
   connect() {
-    console.log("[Stimulus]successfully connected to the select_controller.js");
+    console.log("[Stimulus] successfully connected to the select_controller.js");
   }
 
   change(event) {

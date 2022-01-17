@@ -18,7 +18,7 @@
 
   <hr class="my-6">
   
-  <section class="flex w-full">
+  <section class="flex w-full" data-controller="summary">
     <article class="flex-1">
       <%= turbo_frame_tag "new_kit", src: new_kit_path(@kit), target: "_top" do %>
         <%= render "form_loader" %>
