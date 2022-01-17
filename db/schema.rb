@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_17_141100) do
+ActiveRecord::Schema.define(version: 2022_01_17_182910) do
 
   create_table "buttons", force: :cascade do |t|
     t.string "name"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2022_01_17_141100) do
     t.integer "lining_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
     t.index ["button_id"], name: "index_kits_on_button_id"
     t.index ["fabric_id"], name: "index_kits_on_fabric_id"
     t.index ["lining_id"], name: "index_kits_on_lining_id"

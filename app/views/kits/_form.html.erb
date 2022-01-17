@@ -1,39 +1,48 @@
-<%= form_with(model: kit, class: "contents") do |form| %>
-  <% if kit.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(kit.errors.count, "error") %> prohibited this kit from being saved:</h2>
+<%= turbo_frame_tag "new_kit", target: "_top" do %>
+  <%= form_with(model: kit, id: dom_id(kit), class: "border border-blue-300 shadow rounded-md p-4 max-w-sm w-full") do |form| %>
+    <% if kit.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <h2><%= pluralize(kit.errors.count, "error") %> prohibited this kit from being saved:</h2>
 
-      <ul>
-        <% kit.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% kit.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <section data-controller="select" data-select-url-value= "<%= kit_options_kits_path %>"> 
+      <div class="my-5">
+        <%= form.label :name %>
+        <%= form.text_field :name, 
+          class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 
+          data: { summaryTarget: "name" } %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :fabric_id %>
+        <%= form.select :fabric_id, options_for_select(@fabrics.collect { | fabric | [fabric.name, fabric.id] }), { prompt: "Select a fabric" },
+          { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 
+          data: { action: "change->select#change", id: Fabric.to_s.downcase } } %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :lining_id %>
+        <%= form.select :lining_id, (form.object.fabric_id? ? @fabrics : []), {}, 
+          { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 
+          data: { action: "change->select#change", id: Lining.to_s.downcase } } %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :button_id %>
+        <%= form.select :button_id, (form.object.lining_id? ? @linings : []), {}, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
+      </div>
+    </section>
+
+
+    <div class="inline">
+      <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
     </div>
   <% end %>
-
-  <section data-controller="select" data-select-url-value= "<%= kit_options_kits_path %>"> 
-    <div class="my-5">
-      <%= form.label :fabric_id %>
-      <%= form.select :fabric_id, options_for_select(@fabrics.collect { | fabric | [fabric.name, fabric.id] }), { prompt: "Select a fabric" },
-        { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 
-        data: { action: "change->select#change", id: Fabric.to_s.downcase } } %>
-    </div>
-
-    <div class="my-5">
-      <%= form.label :lining_id %>
-      <%= form.select :lining_id, (form.object.fabric_id? ? @fabrics : []), {}, 
-        { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 
-        data: { action: "change->select#change", id: Lining.to_s.downcase } } %>
-    </div>
-
-    <div class="my-5">
-      <%= form.label :button_id %>
-      <%= form.select :button_id, (form.object.lining_id? ? @linings : []), {}, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
-    </div>
-  </section>
-
-
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
 <% end %>

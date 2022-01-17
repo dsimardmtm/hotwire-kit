@@ -3,12 +3,28 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
+  <article class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Kits</h1>
     <%= link_to 'New kit', new_kit_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
+  </article>
 
-  <div id="kits" class="min-w-full">
-    <%= render @kits %>
-  </div>
+  <%= turbo_stream_from "kits" %>
+
+  <%= turbo_frame_tag "kits" do %>
+    <section class="min-w-full">
+      <%= render @kits %>
+    </section>
+  <% end %>
+
+  <hr class="my-6">
+  
+  <section class="flex w-full">
+    <article class="flex-1">
+      <%= turbo_frame_tag "new_kit", src: new_kit_path(@kit), target: "_top" do %>
+        <%= render "form_loader" %>
+      <% end %>
+    </article>
+
+    <%= render "kit_preview" %>
+  </section>
 </div>

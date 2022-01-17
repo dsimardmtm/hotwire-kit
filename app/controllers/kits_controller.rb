@@ -1,5 +1,6 @@
 class KitsController < ApplicationController
   before_action :set_kit, only: %i[ show edit update destroy ]
+  before_action :set_form_data, only: %i[ index new ]
 
   # GET /kits or /kits.json
   def index
@@ -12,10 +13,6 @@ class KitsController < ApplicationController
 
   # GET /kits/new
   def new
-    @kit = Kit.new
-    @fabrics = Fabric.all
-    @linings = Lining.all
-    @buttons = Button.all
   end
 
   # GET /kits/1/edit
@@ -75,6 +72,13 @@ class KitsController < ApplicationController
 
   def set_kit
     @kit = Kit.find(params[:id])
+  end
+
+  def set_form_data
+    @kit = Kit.new
+    @fabrics = Fabric.all
+    @linings = Lining.all
+    @buttons = Button.all
   end
 
   # Only allow a list of trusted parameters through.
