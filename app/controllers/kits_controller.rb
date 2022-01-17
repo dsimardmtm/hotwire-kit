@@ -25,9 +25,10 @@ class KitsController < ApplicationController
 
     respond_to do |format|
       if @kit.save
-        format.html { redirect_to kit_url(@kit), notice: "Kit was successfully created." }
+        format.html { redirect_to kits_url, notice: "Kit was successfully created." }
         format.json { render :show, status: :created, location: @kit }
       else
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@kit, partial: "kits/form", locals: { kit: @kit }) }
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @kit.errors, status: :unprocessable_entity }
       end
@@ -86,7 +87,7 @@ class KitsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def kit_params
-    params.require(:kit).permit(:button_id, :fabric_id, :lining_id)
+    params.require(:kit).permit(:button_id, :fabric_id, :lining_id, :name)
   end
 
   def define_options(target)

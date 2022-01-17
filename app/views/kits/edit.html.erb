@@ -1,7 +1,37 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">Editing kit</h1>
 
-  <%= render "form", kit: @kit %>
+  <%= turbo_frame_tag dom_id(@kit) do %>
+    <div class="md:w-2/3 w-full">
+
+      <%= form_with(model: @kit, id: dom_id(@kit), class: "contents") do |form| %>
+        <% if @kit.errors.any? %>
+          <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+            <h2><%= pluralize(@kit.errors.count, "error") %> prohibited this kit from being saved:</h2>
+
+            <ul>
+              <% @kit.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="my-5">
+          <%= form.label :name %>
+          <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+        </div>
+
+        <div class="inline">
+          <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+        </div>
+      <% end %>
+
+
+      <%= link_to "Cancel", @kit %>
+    </div>
+    <hr class="mt-6">
+  <% end %>
 
   <%= link_to "Show this kit", @kit, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   <%= link_to "Back to kits", kits_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

@@ -5,5 +5,5 @@
 <% end %>
 
 <%= turbo_stream.update @summary_target do %>
-  <span><%= @value  %></span>
+  <span data-summary-target="fieldToReset"><%= @value  %></span>
 <% end %>

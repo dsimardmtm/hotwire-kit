@@ -11,7 +11,7 @@
           <dt class="text-sm font-medium text-gray-500">
             Name
           </dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" data-summary-target="output">
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" data-summary-target="output fieldToReset">
           </dd>
         </div>
         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -20,7 +20,7 @@
           </dt>
             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
               <%= turbo_frame_tag "kit_#{Fabric.to_s.downcase}_summary" do %>            
-                <span></span>
+                <span data-summary-target="fieldToReset"></span>
               <% end %>
             </dd>
         </div>
@@ -30,7 +30,7 @@
           </dt>
           <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
               <%= turbo_frame_tag "kit_#{Lining.to_s.downcase}_summary" do %>            
-                <span></span>
+                <span data-summary-target="fieldToReset"></span>
               <% end %>
           </dd>
         </div>
@@ -40,7 +40,7 @@
           </dt>
           <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
             <%= turbo_frame_tag "kit_#{Button.to_s.downcase}_summary" do %>            
-                <span></span>
+                <span data-summary-target="fieldToReset"></span>
               <% end %>
           </dd>
         </div>

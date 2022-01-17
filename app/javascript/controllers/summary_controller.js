@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = [ "name", "output" ];
+  static targets = [ "name", "output", "fieldToReset" ];
 
   connect() {
     console.log("[Stimulus] successfully connected to the summary_controller.js");
@@ -17,5 +17,9 @@ export default class extends Controller {
 
   printName() {
     this.outputTarget.textContent = this.nameTarget.value;
+  }
+
+  resetInputs() {
+    this.fieldToResetTargets.forEach(target => target.innerHTML = "");
   }
 }
