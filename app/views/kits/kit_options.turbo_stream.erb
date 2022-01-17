@@ -1,0 +1,3 @@
+<%= turbo_stream.update @id do %>
+  <%= options_for_select (@options_for_select.collect { | option | [option.name, option.id] }) %>
+<% end %>

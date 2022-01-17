@@ -1,0 +1,2 @@
+module LiningsHelper
+end

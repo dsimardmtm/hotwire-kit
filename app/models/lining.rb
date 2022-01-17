@@ -1,0 +1,2 @@
+class Lining < ApplicationRecord
+end
