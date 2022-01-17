@@ -60,8 +60,11 @@ class KitsController < ApplicationController
   def kit_options
     target = params[:target]
     options = define_options(target)
+
     @options_for_select = options[:items]
     @id = options[:target]
+    @summary_target = options[:summary]
+    @value = params[:selected_value]
 
     respond_to do |format|
       format.turbo_stream
@@ -91,12 +94,20 @@ class KitsController < ApplicationController
     when Fabric.to_s.downcase
       {
         items: Lining.all,
-        target: "kit_#{Lining.to_s.downcase}_id"
+        target: "kit_#{Lining.to_s.downcase}_id",
+        summary: "kit_#{Fabric.to_s.downcase}_summary"
       }
     when Lining.to_s.downcase
       {
         items: Button.all,
-        target: "kit_#{Button.to_s.downcase}_id"
+        target: "kit_#{Button.to_s.downcase}_id",
+        summary: "kit_#{Lining.to_s.downcase}_summary"
+      }
+    when Button.to_s.downcase
+      {
+        items: nil,
+        target: nil,
+        summary: "kit_#{Button.to_s.downcase}_summary"
       }
     else
       raise Argument_error

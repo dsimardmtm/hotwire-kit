@@ -13,6 +13,7 @@ export default class extends Controller {
   change(event) {
     const params = new URLSearchParams();
     params.append("target", event.target.dataset.id);
+    params.append("selected_value", event.target.selectedOptions[0].text);
 
     get(`${this.urlValue}?${params}`, {
       responseKind: "turbo-stream"

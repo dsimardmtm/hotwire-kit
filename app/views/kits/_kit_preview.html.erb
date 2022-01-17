@@ -18,14 +18,20 @@
           <dt class="text-sm font-medium text-gray-500">
             Fabric
           </dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          </dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= turbo_frame_tag "kit_#{Fabric.to_s.downcase}_summary" do %>            
+                <span></span>
+              <% end %>
+            </dd>
         </div>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">
             Lining
           </dt>
           <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= turbo_frame_tag "kit_#{Lining.to_s.downcase}_summary" do %>            
+                <span></span>
+              <% end %>
           </dd>
         </div>
         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -33,6 +39,9 @@
             Button
           </dt>
           <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= turbo_frame_tag "kit_#{Button.to_s.downcase}_summary" do %>            
+                <span></span>
+              <% end %>
           </dd>
         </div>
       </dl>

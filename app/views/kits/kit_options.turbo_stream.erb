@@ -1,3 +1,9 @@
-<%= turbo_stream.update @id do %>
-  <%= options_for_select (@options_for_select.collect { | option | [option.name, option.id] }) %>
+<% if @options_for_select %>
+  <%= turbo_stream.update @id do %>
+    <%= options_for_select (@options_for_select.collect { | option | [option.name, option.id] }) %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.update @summary_target do %>
+  <span><%= @value  %></span>
 <% end %>
