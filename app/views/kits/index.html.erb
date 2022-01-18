@@ -3,12 +3,35 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Kits</h1>
-    <%= link_to 'New kit', new_kit_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
+  <h1 class="font-bold text-4xl mb-4">Kits</h1>
 
-  <div id="kits" class="min-w-full">
-    <%= render @kits %>
-  </div>
+  <%= turbo_stream_from "kits" %>
+
+    <section>
+      <article class="flex max-w-md">
+        <%= sort_link_to "Name", :name, class: "flex-1 font-semibold", data: { turbo_action: "advance" } %>
+        <%= sort_link_to "Fabric", :fabric_id, class: "flex-1 font-semibold", data: { turbo_action: "advance" } %>
+        <%= sort_link_to "Lining", :lining_id, class: "flex-1 font-semibold", data: { turbo_action: "advance" } %>
+        <%= sort_link_to "Button", :button_id, class: "flex-1 font-semibold", data: { turbo_action: "advance" } %>
+        <span class= "flex-1"></span>
+      </article>
+      
+      <div class="flex flex-col max-w-md">
+        <%= turbo_frame_tag "kits" do %>
+          <%= render @kits %>
+        <% end %>
+      </div>
+    </section>
+
+  <hr class="my-6">
+  
+  <section class="flex w-full" data-controller="select summary" data-select-url-value="<%= kit_options_kits_path %>">
+    <article class="flex-1">
+      <%= turbo_frame_tag "kit_form" do %>
+        <%= render "kits/form", kit: @kit %>
+      <% end %>
+    </article>
+
+    <%= render "kit_preview" %>
+  </section>
 </div>

@@ -1,22 +1,21 @@
-<div id="<%= dom_id kit %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Button:</strong>
-    <%= kit.button_id %>
+<%= turbo_frame_tag dom_id(kit), class: "flex mb-6" do %>
+  <p class="flex-1">
+    <%= kit.name %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Fabric:</strong>
+  <p class="flex-1">
     <%= kit.fabric_id %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Lining:</strong>
+  <p class="flex-1">
     <%= kit.lining_id %>
   </p>
 
-  <% if action_name != "show" %>
-    <%= link_to "Show this kit", kit, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this kit', edit_kit_path(kit), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
-</div>
+  <p class="flex-1">
+    <%= kit.button_id %>
+  </p>
+
+  <p class="flex-1">
+    <%= link_to "Edit", edit_kit_path(kit), class: "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" %>
+  </p>
+<% end %>

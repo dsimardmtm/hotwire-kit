@@ -1,5 +1,6 @@
 class KitsController < ApplicationController
   before_action :set_kit, only: %i[ show edit update destroy ]
+  before_action :set_form_data, only: %i[ index new ]
 
   # GET /kits or /kits.json
   def index
@@ -12,10 +13,6 @@ class KitsController < ApplicationController
 
   # GET /kits/new
   def new
-    @kit = Kit.new
-    @fabrics = Fabric.all
-    @linings = Lining.all
-    @buttons = Button.all
   end
 
   # GET /kits/1/edit
@@ -28,9 +25,10 @@ class KitsController < ApplicationController
 
     respond_to do |format|
       if @kit.save
-        format.html { redirect_to kit_url(@kit), notice: "Kit was successfully created." }
+        format.html { redirect_to kits_url, notice: "Kit was successfully created." }
         format.json { render :show, status: :created, location: @kit }
       else
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@kit, partial: "kits/form", locals: { kit: @kit }) }
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @kit.errors, status: :unprocessable_entity }
       end
@@ -63,8 +61,11 @@ class KitsController < ApplicationController
   def kit_options
     target = params[:target]
     options = define_options(target)
+
     @options_for_select = options[:items]
     @id = options[:target]
+    @summary_target = options[:summary]
+    @value = params[:selected_value]
 
     respond_to do |format|
       format.turbo_stream
@@ -77,9 +78,16 @@ class KitsController < ApplicationController
     @kit = Kit.find(params[:id])
   end
 
+  def set_form_data
+    @kit = Kit.new
+    @fabrics = Fabric.all
+    @linings = Lining.all
+    @buttons = Button.all
+  end
+
   # Only allow a list of trusted parameters through.
   def kit_params
-    params.require(:kit).permit(:button_id, :fabric_id, :lining_id)
+    params.require(:kit).permit(:button_id, :fabric_id, :lining_id, :name)
   end
 
   def define_options(target)
@@ -87,12 +95,20 @@ class KitsController < ApplicationController
     when Fabric.to_s.downcase
       {
         items: Lining.all,
-        target: "kit_#{Lining.to_s.downcase}_id"
+        target: "kit_#{Lining.to_s.downcase}_id",
+        summary: "kit_#{Fabric.to_s.downcase}_summary"
       }
     when Lining.to_s.downcase
       {
         items: Button.all,
-        target: "kit_#{Button.to_s.downcase}_id"
+        target: "kit_#{Button.to_s.downcase}_id",
+        summary: "kit_#{Lining.to_s.downcase}_summary"
+      }
+    when Button.to_s.downcase
+      {
+        items: nil,
+        target: nil,
+        summary: "kit_#{Button.to_s.downcase}_summary"
       }
     else
       raise Argument_error
