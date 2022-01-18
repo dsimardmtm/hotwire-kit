@@ -5,6 +5,21 @@ class KitsController < ApplicationController
   # GET /kits or /kits.json
   def index
     @kits = Kit.all
+    @kits = @kits.search(params[:query]) if params[:query].present?
+    # could also just filter by name with simply
+    # @kits = @kits.where("name like ?", "%#{params[:query]}%") if params[:query].present?
+    # and push only a turboframe view
+    # see https://www.colby.so/posts/instant-search-with-rails-6-and-hotwire
+
+    @pagy, @kits = pagy @kits.reorder(sort_column => sort_direction), items: params.fetch(:count, 5)
+  end
+
+  def sort_column
+    %w{ name fabric_id lining_id button_id }.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w{ asc desc }.include?(params[:direction]) ? params[:direction] : "asc"
   end
 
   # GET /kits/1 or /kits/1.json

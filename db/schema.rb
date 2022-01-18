@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2022_01_17_182910) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "buttons", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -25,9 +28,9 @@ ActiveRecord::Schema.define(version: 2022_01_17_182910) do
   end
 
   create_table "kits", force: :cascade do |t|
-    t.integer "button_id", null: false
-    t.integer "fabric_id", null: false
-    t.integer "lining_id", null: false
+    t.bigint "button_id", null: false
+    t.bigint "fabric_id", null: false
+    t.bigint "lining_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"

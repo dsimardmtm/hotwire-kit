@@ -14,28 +14,28 @@
 
     <section> 
       <div class="my-5">
-        <%= form.label :name %>
+        <%= form.label :name, class: "text-md font-medium text-gray-600" %>
         <%= form.text_field :name, 
           class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 
           data: { "summary-target": "name", action: "input->summary#printName" } %>
       </div>
 
       <div class="my-5">
-        <%= form.label :fabric_id %>
+        <%= form.label :fabric_id, class: "text-md font-medium text-gray-600" %>
         <%= form.select :fabric_id, options_for_select(fabrics.collect { | fabric | [fabric.name, fabric.id] }), { prompt: "Select a fabric" },
           { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 
           data: { action: "change->select#change", id: Fabric.to_s.downcase } } %>
       </div>
 
       <div class="my-5">
-        <%= form.label :lining_id %>
+        <%= form.label :lining_id, class: "text-md font-medium text-gray-600" %>
         <%= form.select :lining_id, (form.object.fabric_id? ? @fabrics : []), {}, 
           { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 
           data: { action: "change->select#change", id: Lining.to_s.downcase } } %>
       </div>
 
       <div class="my-5">
-        <%= form.label :button_id %>
+        <%= form.label :button_id, class: "text-md font-medium text-gray-600" %>
         <%= form.select :button_id, (form.object.lining_id? ? @linings : []), {}, 
           { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full",
           data: { action: "change->select#change", id: Button.to_s.downcase } } %>
