@@ -28,7 +28,7 @@ class KitsController < ApplicationController
         format.html { redirect_to kits_url, notice: "Kit was successfully created." }
         format.json { render :show, status: :created, location: @kit }
       else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@kit, partial: "kits/form", locals: { kit: @kit }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("kit_form", partial: "kits/form", locals: { kit: @kit, fabrics: Fabric.all }) }
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @kit.errors, status: :unprocessable_entity }
       end
@@ -62,7 +62,7 @@ class KitsController < ApplicationController
     target = params[:target]
     options = define_options(target)
 
-    @options_for_select = options[:items]
+    @options_for_select = options[:items] if options[:items]
     @id = options[:target]
     @summary_target = options[:summary]
     @value = params[:selected_value]
@@ -85,22 +85,17 @@ class KitsController < ApplicationController
     @buttons = Button.all
   end
 
-  # Only allow a list of trusted parameters through.
-  def kit_params
-    params.require(:kit).permit(:button_id, :fabric_id, :lining_id, :name)
-  end
-
   def define_options(target)
     case target
     when Fabric.to_s.downcase
       {
-        items: Lining.all,
+        items: items_with_prompt(Lining.all, "Select a Lining"),
         target: "kit_#{Lining.to_s.downcase}_id",
         summary: "kit_#{Fabric.to_s.downcase}_summary"
       }
     when Lining.to_s.downcase
       {
-        items: Button.all,
+        items: items_with_prompt(Button.all, "Select a Button"),
         target: "kit_#{Button.to_s.downcase}_id",
         summary: "kit_#{Lining.to_s.downcase}_summary"
       }
@@ -113,5 +108,16 @@ class KitsController < ApplicationController
     else
       raise Argument_error
     end
+  end
+
+  def items_with_prompt(items, prompt)
+    items
+      .collect { |option| [option.name, option.id] }
+      .unshift([prompt, "0"])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def kit_params
+    params.require(:kit).permit(:button_id, :fabric_id, :lining_id, :name)
   end
 end

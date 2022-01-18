@@ -1,12 +1,11 @@
 # Hotwire Kit
 
-Kit builder in Hotwire
+Kit builder in [Hotwire](https://hotwired.dev/)
 
 # TODO
 
-- Reset data after summit (form with turbostream and preview with Stimulus)
-- Fix first load of linings and buttons
 - Search + pagination
 
+- Disable prompt in options
 - Try css for table + lazy loading the for
 - Animation on turbo stream render + show/hide form fields
