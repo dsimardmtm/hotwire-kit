@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "new_kit" do %>
+<%= turbo_frame_tag "kit_form" do %>
   <%= form_with(model: kit, id: dom_id(kit), data: { action: "turbo:submit-start->summary#resetInputs" }, class: "border border-blue-300 shadow rounded-md p-4 max-w-sm w-full bg-gray-50") do |form| %>
     <% if kit.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
@@ -22,7 +22,7 @@
 
       <div class="my-5">
         <%= form.label :fabric_id %>
-        <%= form.select :fabric_id, options_for_select(@fabrics.collect { | fabric | [fabric.name, fabric.id] }), { prompt: "Select a fabric" },
+        <%= form.select :fabric_id, options_for_select(fabrics.collect { | fabric | [fabric.name, fabric.id] }), { prompt: "Select a fabric" },
           { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 
           data: { action: "change->select#change", id: Fabric.to_s.downcase } } %>
       </div>

@@ -27,9 +27,7 @@
   
   <section class="flex w-full" data-controller="select summary" data-select-url-value="<%= kit_options_kits_path %>">
     <article class="flex-1">
-      <%= turbo_frame_tag "kit_form" do %>
-        <%= render "kits/form", kit: @kit %>
-      <% end %>
+      <%= render "kits/form", kit: @kit, fabrics: @fabrics %>
     </article>
 
     <%= render "kit_preview" %>
