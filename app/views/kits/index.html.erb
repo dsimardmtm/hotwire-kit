@@ -7,7 +7,7 @@
 
   <%= turbo_stream_from "kits" %>
   <article class="flex">
-    <%= turbo_frame_tag "filter", class:"flex grow" do %>
+    <%= turbo_frame_tag "kits", class:"flex grow" do %>
       <section class="grow">
         <article class="flex max-w-md">
           <%= sort_link_to "Name", :name, class: "flex-1 font-semibold text-gray-600", data: { turbo_action: "advance" } %>
@@ -17,8 +17,7 @@
           <span class= "flex-1"></span>
         </article>
         
-        <div class="flex flex-col max-w-md">
-          <%= turbo_frame_tag "kits" do %>
+        <div class="flex flex-col max-w-md" id="kits_list">
           
             <%= render @kits %>
 
@@ -26,7 +25,6 @@
               <%== pagy_nav @pagy %>
             </article>
 
-          <% end %>
         </div>
       </section>
     <% end %>

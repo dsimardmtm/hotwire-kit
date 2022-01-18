@@ -19,7 +19,7 @@ Kit builder with [Hotwire](https://hotwired.dev/)
 
 # TODO
 
-- Deploy to Heroku
+- pass count to URL when sorting/searching
 - Disable prompt in options
 - Disable flash after a few seconds
 - Try css for table
