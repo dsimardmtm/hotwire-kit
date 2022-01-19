@@ -19,9 +19,5 @@ Kit builder with [Hotwire](https://hotwired.dev/)
 
 # TODO
 
-- pass count to URL when sorting/searching
-- Disable prompt in options
-- Disable flash after a few seconds
-- Try css for table
-- lazy loading the form
-- Animation on turbo stream render + show/hide form fields
+- Fix pagy page number not being passed in the URL on click
+- Deploy (! importmap instead of webpacker for the @rails/request.js)
