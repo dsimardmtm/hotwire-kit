@@ -30,7 +30,7 @@ buttons.each do |button|
   Button.create!(name: button)
 end
 
-7.times do
+5_000.times do
   Kit.create!(
     name: (0...5).map { ('a'..'z').to_a[rand(26)] }.join,
     fabric_id: Fabric.order(Arel.sql('RANDOM()')).first.id,
