@@ -19,7 +19,12 @@ export default class extends Controller {
     this.outputTarget.textContent = this.nameTarget.value;
   }
 
-  resetInputs() {
-    this.fieldToResetTargets.forEach(target => target.innerHTML = "");
+  // Could replace this method with a turbo_stream 
+  // in the def create end method in the rails controller when the save is successful
+  resetInputs(event) {
+    const { detail: { success } } = event;
+    if (success) {
+      this.fieldToResetTargets.forEach(target => target.innerHTML = "");
+    }
   }
 }
