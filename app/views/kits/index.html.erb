@@ -4,7 +4,7 @@
   <% end %>
 
   <h1 class="font-bold text-4xl mb-4 text-red-600">Kits</h1>
-
+  
   <%= turbo_stream_from "kits" %>
   <article class="flex" data-controller="sorting">
     <%= turbo_frame_tag "kits", class:"flex grow" do %>
@@ -40,6 +40,52 @@
           class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2",
           data: { action: "input->search#searchKit" } %>
       <% end %>
+
+
+        <%# Stimulus carousel %>
+      <div class="py-8 text-base leading-7 space-y-6 text-gray-600" data-controller="slideshow" data-slideshow-index-value data-slideshow-hidden-class="hidden"> 
+        <article class="flex">
+          <button data-action="slideshow#previous" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"> ← </button>
+          <button data-action="slideshow#next" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"> → </button>
+        </article>
+        <ul class="space-y-4">
+          <li class="flex items-center" data-slideshow-target="slide">
+            <svg class="w-6 h-6 flex-none fill-sky-100 stroke-sky-500 stroke-2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="11" />
+              <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+            </svg>
+            <p class="ml-4">
+              Create and edit kits
+            </p>
+          </li>
+
+          <li class="flex items-center hidden" data-slideshow-target="slide">
+            <svg class="w-6 h-6 flex-none fill-sky-100 stroke-sky-500 stroke-2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="11" />
+              <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+            </svg>
+            <p class="ml-4">
+              Sort, filter and search for kits
+            </p>
+          </li>
+
+          <li class="flex items-center hidden" data-slideshow-target="slide">
+            <svg class="w-6 h-6 flex-none fill-sky-100 stroke-sky-500 stroke-2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="11" />
+              <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+            </svg>
+            <p class="ml-4">Multi browser experience with websockets</p>
+          </li>
+
+          <li class="flex items-center hidden" data-slideshow-target="slide">
+            <svg class="w-6 h-6 flex-none fill-sky-100 stroke-sky-500 stroke-2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="11" />
+              <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+            </svg>
+            <p class="ml-4">Lolz 🙊</p>
+          </li>
+      </div>
+
     </section>
   </article>
 
