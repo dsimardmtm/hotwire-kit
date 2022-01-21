@@ -17,7 +17,9 @@ Kit builder with [Hotwire](https://hotwired.dev/)
 - Make sure both `Redis` and `PostgreSQL` run also
 - Once the db and migrated, you can run `rails db:seed` to create base data
 
+Note that there is currently a small issue when deploying to prod with `@rails/request.js`. See the thread [here](https://github.com/rails/requestjs-rails/issues/5) and [here](https://discuss.hotwired.dev/t/importmap-error-rails-request-js-in-production-heroku-disables-turbolinks/3717)
+
 # TODO
 
 - Fix pagy page number not being passed in the URL on click
-- Deploy (! importmap instead of webpacker for the @rails/request.js)
+- Replace `sorting_controller.js` with an `index.turb_stream.erb`
