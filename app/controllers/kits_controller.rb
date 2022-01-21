@@ -43,7 +43,15 @@ class KitsController < ApplicationController
         format.html { redirect_to kits_url, notice: "Kit was successfully created." }
         format.json { render :show, status: :created, location: @kit }
       else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("kit_form", partial: "kits/form", locals: { kit: @kit, fabrics: Fabric.all }) }
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.replace("kit_form",
+                                                    partial: "kits/form",
+                                                    locals: { kit: @kit,
+                                                              fabrics: items_with_prompt(Fabric.all, "Select a fabric"),
+                                                              linings: items_with_prompt(Lining.all, "Select a lining"),
+                                                              buttons: items_with_prompt(Button.all, "Select a button")}),
+                 status: :unprocessable_entity
+        }
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @kit.errors, status: :unprocessable_entity }
       end
@@ -95,22 +103,20 @@ class KitsController < ApplicationController
 
   def set_form_data
     @kit = Kit.new
-    @fabrics = Fabric.all
-    @linings = Lining.all
-    @buttons = Button.all
+    @fabrics = items_with_prompt(Fabric.all, "Select a fabric")
   end
 
   def define_options(target)
     case target
     when Fabric.to_s.downcase
       {
-        items: items_with_prompt(Lining.all, "Select a Lining"),
+        items: items_with_prompt(Lining.all, "Select a lining"),
         target: "kit_#{Lining.to_s.downcase}_id",
         summary: "kit_#{Fabric.to_s.downcase}_summary"
       }
     when Lining.to_s.downcase
       {
-        items: items_with_prompt(Button.all, "Select a Button"),
+        items: items_with_prompt(Button.all, "Select a button"),
         target: "kit_#{Button.to_s.downcase}_id",
         summary: "kit_#{Lining.to_s.downcase}_summary"
       }

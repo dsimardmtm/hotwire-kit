@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "kit_form" do %>
-  <%= form_with(model: kit, id: dom_id(kit), data: { action: "turbo:submit-start->summary#resetInputs" }, class: "border border-blue-300 shadow rounded-md p-4 max-w-sm w-full bg-gray-50") do |form| %>
+  <%= form_with(model: kit, id: dom_id(kit), data: { action: "turbo:submit-end->summary#resetInputs" }, class: "border border-blue-300 shadow rounded-md p-4 max-w-sm w-full bg-gray-50") do |form| %>
     <% if kit.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
         <h2><%= pluralize(kit.errors.count, "error") %> prohibited this kit from being saved:</h2>
@@ -22,21 +22,21 @@
 
       <div class="my-5">
         <%= form.label :fabric_id, class: "text-md font-medium text-gray-600" %>
-        <%= form.select :fabric_id, options_for_select(fabrics.collect { | fabric | [fabric.name, fabric.id] }), { prompt: "Select a fabric" },
+        <%= form.select :fabric_id, fabrics, {}, 
           { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 
           data: { action: "change->select#change", id: Fabric.to_s.downcase } } %>
       </div>
 
       <div class="my-5">
         <%= form.label :lining_id, class: "text-md font-medium text-gray-600" %>
-        <%= form.select :lining_id, (form.object.fabric_id? ? @fabrics : []), {}, 
+        <%= form.select :lining_id, (form.object.fabric_id? ? linings : []), {}, 
           { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 
           data: { action: "change->select#change", id: Lining.to_s.downcase } } %>
       </div>
 
       <div class="my-5">
         <%= form.label :button_id, class: "text-md font-medium text-gray-600" %>
-        <%= form.select :button_id, (form.object.lining_id? ? @linings : []), {}, 
+        <%= form.select :button_id, (form.object.lining_id? ? buttons : []), {}, 
           { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full",
           data: { action: "change->select#change", id: Button.to_s.downcase } } %>
       </div>

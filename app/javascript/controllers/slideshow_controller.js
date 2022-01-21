@@ -22,7 +22,7 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log("connect");
+    console.log("[Stimulus] successfully connected to the slideshow_controller.js");
   }
 
   indexValueChanged() {
