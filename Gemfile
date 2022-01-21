@@ -74,6 +74,5 @@ group :test do
   gem "webdrivers"
 end
 
-gem 'requestjs-rails'
 gem "pagy"
 gem "pg_search"
