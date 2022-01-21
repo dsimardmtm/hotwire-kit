@@ -1,6 +1,6 @@
 # Hotwire Kit
 
-Kit builder with [Hotwire](https://hotwired.dev/)
+Kit builder with [Hotwire](https://hotwired.dev/) ✨
 
 # Config
 
